@@ -1,6 +1,9 @@
 # sheetToRedmine
 
-  구글 스프레드 시트를 레드마인의 표 형식으로 변환해주는 프로그램이다. 구글 스프레드 시트의 확장프로그램인 Apps Script에서 사용할 수 있다.
+구글 스프레드 시트를 레드마인의 표 형식으로 변환해주는 프로그램이다. 
+
+구글 스프레드 시트의 확장프로그램인 Apps Script에서 사용할 수 있다.
+  
   ```javascript
   function toRedmine4(range) {
   var _redmineContent = '';
