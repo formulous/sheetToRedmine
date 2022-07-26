@@ -8,7 +8,9 @@
   
   ```javascript
   function toRedmine4(range) {
-  var _redmineContent = '';
+  var _redmineContent = `table{valign:top;font-size:small}.
+|={background:#999999;color:#ffffff;}. Senario|={background:#999999;color:#ffffff;}. Test Case|={background:#999999;color:#ffffff;}. Expected|={background:#999999;color:#ffffff;}. Result|={background:#999999;color:#ffffff;}. Pass / Fail|={background:#999999;color:#ffffff;}. Comment|
+`;
   var _range = SpreadsheetApp.getActiveSheet().getRange(range);
   var _values = _range.getDisplayValues();
   var _aligns = _range.getHorizontalAlignments();
