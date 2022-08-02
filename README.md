@@ -8,49 +8,52 @@
   
   ```javascript
   function toRedmine4(range) {
-  var _redmineContent = `table{valign:top;font-size:small}.
+var _redmineContent = `table{valign:top;font-size:small}.
 |={background:#999999;color:#ffffff;}. Senario|={background:#999999;color:#ffffff;}. Test Case|={background:#999999;color:#ffffff;}. Expected|={background:#999999;color:#ffffff;}. Result|={background:#999999;color:#ffffff;}. Pass / Fail|={background:#999999;color:#ffffff;}. Comment|
 `;
-  var _range = SpreadsheetApp.getActiveSheet().getRange(range);
-  var _values = _range.getDisplayValues();
-  var _aligns = _range.getHorizontalAlignments();
-  var blankNums = [];
-  var temp = 1;
-  var idx = 0;
-  
-  for (var i = 1; i < _values.length; i++){
-    if (!_values[i][0]){
-      temp += 1;
-      if (i == _values.length-1)
-        blankNums.push(temp);  
-    }
-    else if (_values[i][0]) {
-      blankNums.push(temp);
-      temp = 1;
-    }
+var _range = SpreadsheetApp.getActiveSheet().getRange(range);
+var _values = _range.getDisplayValues();
+var _aligns = _range.getHorizontalAlignments();
+var blankNums = [];
+var temp = 1;
+var idx = 0;
+
+for (var i = 1; i < _values.length; i++){
+  if (!_values[i][0]){
+    temp += 1;
+    if (i == _values.length-1)
+      blankNums.push(temp);  
   }
-  for (var i = 0; i < _values.length; i++) {
-    var _row = _values[i];
-    for (var j = 0; j < _row.length; j++) {
-      var _align = _aligns[i][j];
-      var _col = _row[j];
-      if (!(j == 0 && !_col))
-        _redmineContent += '|';
-      if (_align.indexOf('left') > -1){
-        if(j == 0 && _values[i][j]){
-          if(blankNums[idx] > 1 && blankNums[idx])
-            _redmineContent += `/${blankNums[idx]}<.`;
-            idx += 1;
-        }
-        else
-          _redmineContent += '<.'
-      }
+  else if (_values[i][0]) {
+    blankNums.push(temp);
+    temp = 1;
+  }
+}
+for (var i = 0; i < _values.length; i++) {
+  var _row = _values[i];
+  for (var j = 0; j < _row.length; j++) {
+    var _align = _aligns[i][j];
+    var _col = _row[j];
+    if (_col.indexOf('|') != -1){
+      _col = '<pre>' + _col + '</pre>';
+    }
     if (!(j == 0 && !_col))
-      _redmineContent += ' ' + _col + ' ';
+      _redmineContent += '|';
+    if (_align.indexOf('left') > -1){
+      if(j == 0 && _values[i][j]){
+        if(blankNums[idx] > 1 && blankNums[idx])
+          _redmineContent += `/${blankNums[idx]}<.`;
+          idx += 1;
+      }
+      else
+        _redmineContent += '<.'
     }
-    _redmineContent += '|\r\n'
+  if (!(j == 0 && !_col))
+      _redmineContent += ' ' + _col + ' ';
   }
-  return _redmineContent;
+    _redmineContent += '|\r\n'
+}
+return _redmineContent;
 }
 ```
   - 구글 스프레드 시트에서 확장 프로그램의 Apps Script로 들어간다.
