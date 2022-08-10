@@ -10,7 +10,7 @@
 
 - 허용되지 않은 문자에 `<pre>` 태그 추가
 - collapse 기능 추가
-  
+- Test Case Fail인 부분에 대하여 텍스트 색깔 자동 빨간색 변환 추가
 ```javascript
 function toRedmine(range) {
   var _redmineContent = `{{collapse()
@@ -51,8 +51,14 @@ table{valign:top;font-size:small}.
            _redmineContent += `/${blankNums[idx]}<.`;
         idx += 1;
     }
-    else
-      _redmineContent += '<.'
+    else{
+      if(j == 4 && _col.indexOf("F") != -1){
+        _redmineContent += '<{color:#ff0000;}.'
+      }
+      else {
+        _redmineContent += '<.'
+      }
+    }
   }
   if (!(j == 0 && !_col))
     _redmineContent += ' ' + _col + ' ';
